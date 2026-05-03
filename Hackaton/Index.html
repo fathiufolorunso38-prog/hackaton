@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Log System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!--HEADER SECTION-->
+    <!--Displaying System Name-->
+    <div class="header">
+        <h1>Visitor Log System</h1>
+        <p>Securing your environment one visitor at a time</p>
+    </div>
+
+    <!--COUNTER SECTION-->
+    <!--Here We Know How Many Visitor Currently Signed In and out-->
+    <div class="counter container">
+        <div class="counter-box">
+            <h3>Total Visitor Today</h3>
+            <span id="visitorCount">0</span>
+        </div>
+        <div class="counter-box">
+            <h3>Currently Signed In</h3>
+            <span id="signedCount">0</span>
+        </div>
+        <div class="counter-box">
+            <h3>Signed Out</h3>
+            <span id="signedOutCount">0</span>
+        </div>
+    </div>
+
+    <!--FORM SECTION-->
+    <!--Visitor Fills In Their Details -->
+    <div class="form-container">
+        <!--Each Input Collect Different Visitor Info-->
+        <h2>Visitor Sign In</h2>
+        <input type="text" id="visitorName" placeholder="Full Name" />
+        <input type="text" id="visitorPurpose" placeholder="Meeting,Delivery,Interview" />
+        <input type="text" id="visitorHost" placeholder="Who Are You Visiting" />
+        <input type="text" id="visitorPhone" placeholder="+234" />
+
+        <!--This btn triggers the sign in when clicked-->
+      <button type="button" id="signInBtn" onclick="signIn()">Sign In Visitor</button>
+    </div>
+
+    <!--SEARCH SECTION-->
+    <!--Security can search for a specific visitor by name-->
+    <div class="search-container">
+        <h2>Search Visitor</h2>
+        <input type="text" id="searchInput" 
+        placeholder="Visitor Name">
+    </div>
+
+    <!--LOG TABLE SECTION-->
+    <!--All visitor record appear-->
+    <div class="log-container">
+
+        <div class="log-header">
+            <h2>Visitor Log</h2>
+        </div>
+
+        <!--The button wipes all records from the list table-->
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Purpose</th>
+                    <th>Host</th>
+                    <th>Phone</th>
+                    <th>Time In</th>
+                    <th>Time Out</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="logBody">
+                <!--Will be added by JS-->
+            </tbody>
+        </table>
+    </div>
+
+    <!--FOOTER-->
+    <div class="footer">
+        <p>ACOMS week Hackathon 2026 - Physical Security Solution</p>
+    </div>
+
+    <!--JAVASCRIPT-->
+    <script src="script.js"></script>
+</body>
+</html>
