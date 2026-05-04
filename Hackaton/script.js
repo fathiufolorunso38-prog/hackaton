@@ -1,3 +1,8 @@
+// Load data from localStorage on page load
+document.addEventListener("DOMContentLoaded", function(){
+    loadFromStorage()
+})
+
 //main Function that sign In a visitor 
 function signIn(){
     //READ
@@ -16,6 +21,18 @@ function signIn(){
     let now = new Date()
     let timeIn = now.toLocaleTimeString()
     let visitorId = `visitor-${Date.now()}-${Math.floor(Math.random() * 1000)}`
+
+    //Create visitor object
+    let visitor = {
+        id: visitorId,
+        name: name,
+        purpose: purpose,
+        host: host,
+        phone: phone,
+        timeIn: timeIn,
+        timeOut: "--",
+        status: "Signed In"
+    }
 
     //New row
     let row = document.createElement("tr")
@@ -47,6 +64,9 @@ function signIn(){
     document.querySelector("#visitorCount").innerText = visitorCount
     document.querySelector("#signedCount").innerText = signedCount
 
+    //Save to localStorage
+    saveToStorage(visitor)
+
     //Clear the form inputs
     document.querySelector("#visitorName").value = ""
     document.querySelector("#visitorPurpose").value = ""
@@ -72,6 +92,9 @@ function signOut(visitorId){
     
     document.querySelector("#signedCount").innerText = signedCount
     document.querySelector("#signedOutCount").innerText = signedOutCount
+
+    //Update localStorage
+    updateVisitorInStorage(visitorId, { timeOut: timeOut, status: "Signed Out" })
 }
 
 // Search visitor by name
@@ -138,3 +161,74 @@ function loadDemoData(){
     document.querySelector("#signedCount").innerText = signedIn
     document.querySelector("#signedOutCount").innerText = signedOut
 }
+
+// LOCAL STORAGE FUNCTIONS
+function saveToStorage(visitor){
+    let visitors = JSON.parse(localStorage.getItem("visitors")) || []
+    visitors.push(visitor)
+    localStorage.setItem("visitors", JSON.stringify(visitors))
+}
+
+function loadFromStorage(){
+    let visitors = JSON.parse(localStorage.getItem("visitors")) || []
+    
+    visitors.forEach(visitor => {
+        let row = document.createElement("tr")
+        row.innerHTML = `
+        <td>${visitor.name}</td>
+        <td>${visitor.purpose}</td>
+        <td>${visitor.host}</td>
+        <td>${visitor.phone}</td>
+        <td>${visitor.timeIn}</td>
+        <td id="timeout-${visitor.id}">${visitor.timeOut}</td>
+        <td id="status-${visitor.id}" class="status ${visitor.status === 'Signed Out' ? 'status-out' : 'status-in'}">
+            <span class="status-dot"></span>
+            ${visitor.status}
+        </td>
+        <td>
+            <button type="button" onclick="signOut('${visitor.id}')">Sign Out</button>
+        </td>
+        `
+        document.querySelector("#logBody").appendChild(row)
+    })
+
+    // Update counters based on loaded data
+    let signedIn = visitors.filter(v => v.status === "Signed In").length
+    let signedOut = visitors.filter(v => v.status === "Signed Out").length
+    
+    document.querySelector("#visitorCount").innerText = visitors.length
+    document.querySelector("#signedCount").innerText = signedIn
+    document.querySelector("#signedOutCount").innerText = signedOut
+}
+
+function updateVisitorInStorage(visitorId, updates){
+    let visitors = JSON.parse(localStorage.getItem("visitors")) || []
+    let visitorIndex = visitors.findIndex(v => v.id === visitorId)
+    
+    if (visitorIndex !== -1) {
+        visitors[visitorIndex] = { ...visitors[visitorIndex], ...updates }
+        localStorage.setItem("visitors", JSON.stringify(visitors))
+    }
+}
+
+// CLEAR ALL FUNCTION
+function clearAll(){
+    if (confirm("Are you sure you want to clear all visitor records? This cannot be undone.")) {
+        // Clear localStorage
+        localStorage.removeItem("visitors")
+        
+        // Clear table
+        document.querySelector("#logBody").innerHTML = ""
+        
+        // Reset counters
+        document.querySelector("#visitorCount").innerText = "0"
+        document.querySelector("#signedCount").innerText = "0"
+        document.querySelector("#signedOutCount").innerText = "0"
+        
+        // Clear search
+        document.querySelector("#searchInput").value = ""
+        
+        alert("All visitor records have been cleared!")
+    }
+}
+
