@@ -72,7 +72,7 @@ body{
     margin-bottom: 5px;
 }
 .form-container input{
-    width: 50%;
+    width: 100%;
     padding: 10px 15px;
     border: 1px solid#cccccc;
     border-radius: 8px;
@@ -84,7 +84,7 @@ body{
     border: 1px solid #1a1a2e;
 }
 #signInBtn{
-    width: 20%;
+    width: 50%;
     padding: 12px;
     background-color: #1a1a2e;
     color: white;
@@ -111,7 +111,7 @@ body{
     margin-bottom: 20px;
 }
 .search-container input{
-    width: 95%;
+    width: 100%;
     padding: 10px 15px;
     border: 1px solid #cccccc;
     border-radius: 8px;
@@ -207,4 +207,149 @@ tbody tr:hover{
     padding: 20px;
     margin-top: 40px;
     font-size: 13px;
+}
+
+/* MOBILE RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+    /* Header adjustments */
+    .header {
+        padding: 20px 15px;
+    }
+    .header h1 {
+        font-size: 24px;
+    }
+    .header p {
+        font-size: 12px;
+    }
+
+    /* Counter section - stack vertically on small screens */
+    .counter-container {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px 15px;
+    }
+    .counter-box {
+        padding: 15px 20px;
+        min-width: auto;
+        width: 100%;
+    }
+    .counter-box span {
+        font-size: 32px;
+    }
+
+    /* Form section */
+    .form-container {
+        margin: 15px;
+        padding: 20px;
+        max-width: none;
+    }
+    .form-container h2 {
+        font-size: 18px;
+    }
+    .form-container input {
+        font-size: 16px; /* Prevents zoom on iOS */
+        padding: 12px 15px;
+    }
+    #signInBtn {
+        width: 100%;
+        font-size: 16px;
+        padding: 14px;
+        min-height: 44px; /* Touch-friendly button size */
+    }
+
+    /* Search section */
+    .search-container {
+        margin: 15px;
+        padding: 20px;
+        max-width: none;
+    }
+    .search-container h2 {
+        font-size: 18px;
+    }
+    .search-container input {
+        font-size: 16px;
+        padding: 12px 15px;
+    }
+
+    /* Table section - make scrollable on mobile */
+    .log-container {
+        margin: 15px;
+        padding: 20px;
+        max-width: none;
+        overflow-x: auto; /* Horizontal scroll for wide table */
+    }
+    .log-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    .log-header h2 {
+        font-size: 18px;
+    }
+    #clearBtn {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    /* Table adjustments */
+    table {
+        min-width: 800px; /* Ensures table doesn't shrink too much */
+        font-size: 13px;
+    }
+    th, td {
+        padding: 8px 10px;
+        white-space: nowrap; /* Prevents text wrapping */
+    }
+    th {
+        font-size: 12px;
+    }
+    td {
+        font-size: 12px;
+    }
+    /* Touch-friendly buttons */
+    td button {
+        padding: 6px 12px;
+        font-size: 12px;
+        min-height: 32px;
+    }
+
+    /* Status badges - smaller on mobile */
+    .status-dot {
+        width: 8px;
+        height: 8px;
+    }
+
+    /* Footer */
+    .footer {
+        padding: 15px;
+        font-size: 12px;
+        margin-top: 20px;
+    }
+}
+
+/* Extra small screens (phones in portrait) */
+@media (max-width: 480px) {
+    .counter-container {
+        padding: 15px 10px;
+    }
+    .counter-box {
+        padding: 12px 15px;
+    }
+    .counter-box span {
+        font-size: 28px;
+    }
+
+    .form-container, .search-container, .log-container {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    table {
+        min-width: 700px;
+    }
+    th, td {
+        padding: 6px 8px;
+        font-size: 11px;
+    }
 }
